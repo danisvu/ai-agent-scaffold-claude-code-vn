@@ -1,0 +1,54 @@
+{
+  "permissions": {
+    "allow": [
+      "git log",
+      "git diff",
+      "git status",
+      "git branch",
+      "git checkout",
+      "git add",
+      "git commit",
+      "git push",
+      "git pull",
+      "git stash",
+      "git merge",
+      "npm run",
+      "npm test",
+      "npm install",
+      "npx",
+      "yarn",
+      "pnpm",
+      "cat",
+      "ls",
+      "find",
+      "grep",
+      "head",
+      "tail",
+      "wc",
+      "tree",
+      "echo"
+    ],
+    "deny": [
+      "rm -rf /",
+      "rm -rf ~",
+      "sudo",
+      "chmod 777",
+      "curl | sh",
+      "wget | sh",
+      "eval"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "([ -f .prettierrc ] || [ -f .prettierrc.json ] || [ -f prettier.config.js ]) && npx prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
